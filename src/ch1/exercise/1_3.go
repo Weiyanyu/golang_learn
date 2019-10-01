@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func main() {
+func main112() {
 	start := time.Now().Nanosecond()
 	lowEcho()
 	end := time.Now().Nanosecond()

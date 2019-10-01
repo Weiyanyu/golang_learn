@@ -1,6 +1,5 @@
 /*
-练习 1.8： 修改fetch这个范例，如果输入的url参数没有 http:// 前缀的话，为这个url加上该前
-缀。你可能会用到strings.HasPrefix这个函数。
+练习 1.9： 修改fetch打印出HTTP协议的状态码，可以从resp.Status变量得到该状态码。
  */
 
 package main
@@ -13,7 +12,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main99() {
 	for _, url := range os.Args[1:] {
 		if !strings.HasPrefix(url, "http://") {
 			url = "http://" + url
@@ -23,6 +22,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "fetch %v\n", err)
 			os.Exit(1)
 		}
+		fmt.Printf("response status code is : %s", resp.Status)
 		_, err = io.Copy(os.Stdout, resp.Body)
 		resp.Body.Close()
 		if err != nil {

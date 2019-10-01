@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func main() {
+func main33() {
 	counts := make(map[string]int)
 	filenames := os.Args[1:]
 	if len(filenames) == 0 {
