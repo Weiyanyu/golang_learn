@@ -38,11 +38,11 @@ func lissajousService(out io.Writer, request *http.Request) {
 
 
 
-	cycles := float64(conveter(request.Form.Get("cycles"), 5))   // number of complete x oscillator revolutions
+	cycles := float64(converter(request.Form.Get("cycles"), 5))   // number of complete x oscillator revolutions
 	res := 0.001  // angular resolution
-	size := conveter(request.Form.Get("size"), 100)  // image canvas covers [‐size..+size]
-	nframes := conveter(request.Form.Get("nframes"), 64) // number of animation frames
-	delay := conveter(request.Form.Get("delay"), 8)    // delay between frames in 10ms units
+	size := converter(request.Form.Get("size"), 100)  // image canvas covers [‐size..+size]
+	nframes := converter(request.Form.Get("nframes"), 64) // number of animation frames
+	delay := converter(request.Form.Get("delay"), 8)    // delay between frames in 10ms units
 
 	freq := rand.Float64() * 3.0 // relative frequency of y oscillator
 	anim := gif.GIF{LoopCount: nframes}
@@ -64,7 +64,7 @@ func lissajousService(out io.Writer, request *http.Request) {
 	gif.EncodeAll(out, &anim) // NOTE: ignoring encoding errors
 }
 
-func conveter(str string, defautValue int) int {
+func converter(str string, defautValue int) int {
 	res, err := strconv.Atoi(str)
 	if err != nil {
 		res = defautValue
