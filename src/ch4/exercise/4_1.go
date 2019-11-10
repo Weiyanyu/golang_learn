@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-func main() {
+func main1() {
 	ch1 := sha256.Sum256([]byte("xc"))
 	ch2 := sha256.Sum256([]byte("addd"))
 	res := DiffCount(ch1, ch2)
