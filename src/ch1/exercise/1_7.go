@@ -2,7 +2,7 @@
 练习 1.7： 函数调用io.Copy(dst, src)会从src中读取内容，并将读到的结果写入到dst中，使用这个
 函数替代掉例子中的ioutil.ReadAll来拷贝响应结构体到os.Stdout，避免申请一个缓冲区（例子中的
 b）来存储。记得处理io.Copy返回结果中的错误。
- */
+*/
 
 package main
 
@@ -23,7 +23,7 @@ func main66() {
 		_, err = io.Copy(os.Stdout, resp.Body)
 		resp.Body.Close()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch reading %s : %v\n", url ,err)
+			fmt.Fprintf(os.Stderr, "fetch reading %s : %v\n", url, err)
 			os.Exit(1)
 		}
 	}
