@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func main() {
+func main_4_5() {
 	str := []string{"a", "a", "b", "b", "d", "b", "c", "c"}
 	fmt.Println(RemoveDuplicates(str))
 }

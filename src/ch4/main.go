@@ -1,14 +1,13 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	a := []int{}
 
-	a = AppendInt(a, 1)
-	a = AppendInt(a, 2)
-	fmt.Println(a)
+	AddEdge("1", "3")
+	AddEdge("2", "3")
+
+	fmt.Printf("has 1 -> 3 ? %v\n", hasEdge("1", "3"))
+	fmt.Printf("has 4 -> 3 ? %v\n", hasEdge("4", "3"))
 
 }
