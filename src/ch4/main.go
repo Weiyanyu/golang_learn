@@ -1,10 +1,24 @@
 package main
 
-import "os"
+import (
+	"html/template"
+	"log"
+	"os"
+	"time"
+)
 
-import "log"
+const templ = `{{.TotalCount}} issues:
+{{range .Items}}---------------------------------------
+Number: {{.Number}}
+User: {{.User.Login}}
+Title: {{.Title | printf "%.64s"}}
+Age: {{.CreatedAt | daysAgo}} days
+{{end}}
+`
 
-import "fmt"
+func daysAgo(t time.Time) int {
+	return int(time.Since(t).Hours() / 24)
+}
 
 func main() {
 	result, err := SearchIssues(os.Args[1:])
@@ -12,8 +26,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%d issues ", result.TotalCount)
-	for _, item := range result.Items {
-		fmt.Printf("#%‐5d %9.9s %.55s\n", item.Number, item.User.Login, item.Title)
+	report := template.Must(template.New("Issue list").Funcs(template.FuncMap{"daysAgo": daysAgo}).Parse(templ))
+
+	if err := report.Execute(os.Stdout, &result); err != nil {
+		log.Fatal(err)
 	}
+
 }
