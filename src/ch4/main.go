@@ -1,35 +1,33 @@
 package main
 
-import (
-	"html/template"
-	"log"
-	"os"
-	"time"
-)
+import "log"
 
-const templ = `{{.TotalCount}} issues:
-{{range .Items}}---------------------------------------
-Number: {{.Number}}
-User: {{.User.Login}}
-Title: {{.Title | printf "%.64s"}}
-Age: {{.CreatedAt | daysAgo}} days
-{{end}}
-`
+func square(n int) int {
+	return n * n
+}
 
-func daysAgo(t time.Time) int {
-	return int(time.Since(t).Hours() / 24)
+func cube(s func(int) int, n int) int {
+	return s(n) * n
+}
+
+func testCallback(str string) int {
+	if str == "" {
+		return 0
+	}
+	return 1
+}
+
+func bf(str string, callback func(string) int) {
+	n := callback(str)
+	if n == 0 {
+		log.Println("has some error")
+	} else {
+		log.Println("good")
+	}
 }
 
 func main() {
-	result, err := SearchIssues(os.Args[1:])
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	report := template.Must(template.New("Issue list").Funcs(template.FuncMap{"daysAgo": daysAgo}).Parse(templ))
-
-	if err := report.Execute(os.Stdout, &result); err != nil {
-		log.Fatal(err)
-	}
-
+	bf("", testCallback)
+	bf("hello, world", testCallback)
 }
