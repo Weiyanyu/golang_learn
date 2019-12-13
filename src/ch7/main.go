@@ -1,12 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"io"
-)
+type stringSlice []string
+
+func (p stringSlice) Len() int {
+	return len(p)
+}
+
+func (p stringSlice) Less(i, j int) bool {
+	return p[i] < p[j]
+}
+
+func (p stringSlice) Swap(i, j int) {
+	p[i], p[j] = p[j], p[i]
+}
 
 func main() {
-	var w io.Writer
-	fmt.Println(w == nil)
-	w.Write([]byte("123"))
+	TestHttp1()
 }
